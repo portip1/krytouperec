@@ -1,51 +1,64 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUBG MOBILE | EXTREME SOFT</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>PILLAR | PUBG SOFT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="pubg-style.css">
 </head>
-<body class="red-theme"> <div class="background-effect"></div>
-    <div class="scanline"></div>
+<body>
 
-    <div class="container">
-        <div class="header-box">
-            <h1 class="glitch">PUBG MOBILE</h1>
-            <button id="theme-toggle" class="theme-switch">SWITCH TO BLUE MODE</button>
-            
-            <div class="status-bar">
-                STATUS: <span class="status-online">UNDETECTED</span>
-            </div>
+    <div class="background-blur"></div>
+
+    <div class="pillar-container">
+        <div class="pillar-header">
+            <h1 class="brand-title">JULE<span>BYPAS</span></h1>
         </div>
 
-        <div class="features">
-            <div class="feature-item"><span>></span> AIMBOT / SILENT</div>
-            <div class="feature-item"><span>></span> ESP / WALLHACK</div>
-            <div class="feature-item"><span>></span> NO RECOIL / IPAD VIEW</div>
+        <div class="pillar-content">
+            <button id="open-status" class="action-tile">
+                <div class="tile-icon">⚡</div>
+                <div class="tile-text">
+                    <span class="bottom">STATUS JULE⚡</span>
+                </div>
+            </button>
+
+            <a href="https://t.me/KPYTOU_PEREC" class="action-tile purchase">
+                <div class="tile-icon">💎</div>
+                <div class="tile-text">
+                    <span class="top">GET FULL</span>
+                    <span class="bottom">ACCESS</span>
+                </div>
+            </a>
         </div>
 
-        <div class="action-buttons">
-            <a href="https://t.me/KPYTOU_PEREC" class="btn-main">ПОЛУЧИТЬ ДОСТУП</a>
-            <a href="index.html" class="btn-back">ВЕРНУТЬСЯ НА ГЛАВНУЮ</a>
+        <div class="pillar-footer">
+            <a href="index.html" class="return-btn">ВЕРНУТЬСЯ НАЗАД</a>
+            <div class="legal">© КРУТОЙ ПЕРЕЦ 2026</div>
         </div>
-
-        <div class="footer">SYSTEM v4.0 // 2026</div>
     </div>
 
-    <script src="script.js"></script>
+    <div id="status-modal" class="glass-modal">
+        <div class="modal-card">
+            <div class="modal-head">DIAGNOSTICS <span class="close-x">&times;</span></div>
+            <div class="status-list">
+                <div class="status-item"><span>GLOBAL</span> <span class="active">SAFE</span></div>
+                <div class="status-item"><span>TAIWAN</span> <span class="active">SAFE</span></div>
+                <div class="status-item"><span>VIETNAM</span> <span class="active">SAFE</span></div>
+                <div class="status-item"><span>KOREA</span> <span class="active">SAFE</span></div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Скрипт переключения темы только для этой страницы
-        const btn = document.getElementById('theme-toggle');
-        btn.addEventListener('click', () => {
-            document.body.classList.toggle('blue-theme');
-            if(document.body.classList.contains('blue-theme')) {
-                btn.innerText = "SWITCH TO RED MODE";
-            } else {
-                btn.innerText = "SWITCH TO BLUE MODE";
-            }
-        });
+        const modal = document.getElementById("status-modal");
+        const btn = document.getElementById("open-status");
+        const close = document.querySelector(".close-x");
+
+        btn.onclick = () => modal.style.display = "flex";
+        close.onclick = () => modal.style.display = "none";
+        window.onclick = (e) => { if(e.target == modal) modal.style.display = "none"; }
     </script>
 </body>
 </html>

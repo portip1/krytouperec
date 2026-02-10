@@ -1,131 +1,95 @@
 :root {
-    --primary: #ff4400; /* Красный по умолчанию */
-    --bg-color: #050505;
-    --shadow: rgba(255, 68, 0, 0.3);
+    --neon: #00ffcc;
+    --neon-dark: #004d3d;
+    --glass: rgba(255, 255, 255, 0.03);
 }
 
-/* СИНИЕ ЦВЕТА ПРИ ПЕРЕКЛЮЧЕНИИ */
-body.blue-theme {
-    --primary: #00f2ff;
-    --shadow: rgba(0, 242, 255, 0.3);
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background-color: var(--bg-color);
-    font-family: 'Orbitron', sans-serif;
-    color: #fff;
+    background: #080808 url('lec.jpg') center/cover no-repeat fixed;
+    font-family: 'Unbounded', sans-serif;
     height: 100vh;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    color: #fff;
     overflow: hidden;
-    transition: 0.3s;
 }
 
-.background-effect {
+/* Эффект размытия заднего фона */
+.background-blur {
     position: fixed;
     inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent), 
-                url('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndXIzZ3ZidXN4eG93M3B3eG54eG54eG54eG54eG54eG54eG54ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Lopx9eUi34rbq/giphy.gif');
-    background-size: cover;
-    background-position: center;
-    filter: brightness(0.4) grayscale(0.5); /* Грейскейл помогает менять оттенок */
-    z-index: -2;
+    backdrop-filter: blur(10px) brightness(0.4);
+    z-index: 1;
 }
 
-/* Кнопка переключателя */
-.theme-switch {
-    background: transparent;
-    border: 1px solid var(--primary);
-    color: var(--primary);
-    padding: 5px 10px;
-    font-size: 9px;
+/* Стеклянная колонна */
+.pillar-container {
+    position: relative;
+    z-index: 10;
+    width: 320px;
+    background: var(--glass);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 4px solid var(--neon); /* Неоновая полоса сверху */
+    backdrop-filter: blur(20px);
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+}
+
+.pillar-header { text-align: center; margin-bottom: 40px; }
+
+.brand-title { font-size: 18px; letter-spacing: 2px; }
+.brand-title span { color: var(--neon); }
+
+/* Кнопки-плитки */
+.pillar-content { width: 100%; display: flex; flex-direction: column; gap: 15px; }
+
+.action-tile {
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
     cursor: pointer;
-    margin-bottom: 15px;
-    font-family: 'Orbitron', sans-serif;
+    color: #fff;
     transition: 0.3s;
-}
-
-.theme-switch:hover {
-    background: var(--primary);
-    color: #000;
-}
-
-.container {
-    width: 90%;
-    max-width: 400px;
-    background: rgba(0, 0, 0, 0.9);
-    padding: 30px;
-    border: 1px solid var(--primary);
-    box-shadow: 0 0 25px var(--shadow);
-    text-align: center;
-    transition: 0.3s;
-}
-
-h1 {
-    font-size: 24px;
-    color: var(--primary);
-    text-shadow: 0 0 10px var(--shadow);
-    margin-bottom: 5px;
-}
-
-.status-online {
-    color: #00ff00;
-    text-shadow: 0 0 10px #00ff00;
-}
-
-.features {
-    text-align: left;
-    margin: 20px 0;
-    padding: 15px;
-    border-left: 2px solid var(--primary);
-    background: rgba(255, 255, 255, 0.02);
-}
-
-.feature-item { font-size: 13px; margin: 8px 0; color: #bbb; }
-.feature-item span { color: var(--primary); margin-right: 10px; }
-
-.btn-main {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    background: var(--primary);
-    color: #000;
     text-decoration: none;
-    font-weight: 900;
-    transition: 0.3s;
 }
 
-.btn-main:hover {
-    box-shadow: 0 0 30px var(--primary);
-    transform: translateY(-2px);
+.action-tile:hover {
+    background: var(--neon);
+    color: #000;
+    transform: translateX(10px);
 }
 
-.btn-back {
-    display: block;
-    color: #666;
-    text-decoration: none;
-    font-size: 11px;
-    margin-top: 15px;
-}
+.tile-icon { font-size: 24px; }
+.tile-text { display: flex; flex-direction: column; align-items: flex-start; }
+.tile-text .top { font-size: 8px; opacity: 0.6; }
+.tile-text .bottom { font-size: 14px; font-weight: 900; }
 
-/* ЗМЕЙКА АДАПТИРУЕТСЯ */
-.cursor-dot {
-    background-color: var(--primary) !important;
-    box-shadow: 0 0 15px var(--primary) !important;
-}
+.purchase { border-left: 2px solid var(--neon); }
 
-.scanline {
-    position: fixed;
-    inset: 0;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
-    background-size: 100% 4px;
-    z-index: 100;
-    pointer-events: none;
+.pillar-footer { margin-top: 50px; text-align: center; }
+.return-btn { text-decoration: none; color: #fff; font-size: 10px; opacity: 0.4; transition: 0.3s; }
+.return-btn:hover { opacity: 1; color: var(--neon); }
+.legal { font-size: 8px; margin-top: 15px; opacity: 0.2; }
+
+/* Модалка */
+.glass-modal {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+    display: none; justify-content: center; align-items: center; z-index: 100;
 }
+.modal-card {
+    background: #000; border-left: 5px solid var(--neon);
+    width: 280px; padding: 30px;
+}
+.modal-head { margin-bottom: 20px; font-weight: 900; font-size: 14px; display: flex; justify-content: space-between; }
+.status-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 12px; }
+.active { color: var(--neon); font-weight: 900; }
+.close-x { cursor: pointer; }

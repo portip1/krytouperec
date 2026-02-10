@@ -1,46 +1,47 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Добавляем больше капель программно
-    const rainContainer = document.querySelector('.rain');
-    for (let i = 0; i < 100; i++) {
-        const drop = document.createElement('div');
-        drop.className = 'drop';
-        drop.style.left = Math.random() * 100 + 'vw';
-        drop.style.animationDuration = (Math.random() * 0.4 + 0.3) + 's';
-        drop.style.animationDelay = Math.random() * 2 + 's';
-        rainContainer.appendChild(drop);
+    
+    // 1. ДОЖДЬ (Генерация 100 капель)
+    const rainContainer = document.getElementById('rain');
+    if (rainContainer) {
+        for (let i = 0; i < 100; i++) {
+            const drop = document.createElement('div');
+            drop.className = 'drop';
+            drop.style.left = Math.random() * 100 + 'vw';
+            drop.style.animationDuration = (Math.random() * 0.4 + 0.4) + 's';
+            drop.style.animationDelay = Math.random() * 2 + 's';
+            rainContainer.appendChild(drop);
+        }
     }
 
-    // 2. Логика красной змейки
-    const dots = [];
-    const mouse = { x: 0, y: 0 };
-    const dotsCount = 12;
+    // 2. КНОПКА MY INFORMATION (Подсветка ника)
+    const infoBtn = document.getElementById('show-info');
+const infoBox = document.getElementById('my-info');
 
-    for (let i = 0; i < dotsCount; i++) {
-        const dot = document.createElement('div');
-        dot.className = 'cursor-dot';
-        document.body.appendChild(dot);
-        dots.push({ el: dot, x: 0, y: 0 });
-    }
-
-    window.addEventListener("mousemove", (e) => {
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
+if (infoBtn) {
+    infoBtn.addEventListener('click', (e) => {
+        // Мы НЕ пишем e.preventDefault(), чтобы ссылка сработала!
+        
+        if (infoBox) {
+            infoBox.classList.add('highlight'); // Добавляем вспышку перед уходом
+        }
+        
+        // Больше ничего не делаем, браузер сам перейдет на info.html
     });
-
-    function animate() {
-        let x = mouse.x;
-        let y = mouse.y;
-
-        dots.forEach((dot, index) => {
-            dot.x += (x - dot.x) * 0.3;
-            dot.y += (y - dot.y) * 0.3;
-            const size = (dotsCount - index) / dotsCount;
-            dot.el.style.transform = `translate(${dot.x}px, ${dot.y}px) scale(${size})`;
-            dot.el.style.opacity = size;
-            x = dot.x;
-            y = dot.y;
-        });
-        requestAnimationFrame(animate);
-    }
-    animate();
+}
 });
+
+// Логика модального окна (если оно тебе нужно)
+const modal = document.getElementById("status-modal");
+const span = document.getElementsByClassName("close-modal")[0];
+
+if (span) {
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+}
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
