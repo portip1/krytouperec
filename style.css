@@ -1,0 +1,116 @@
+/* Общие стили */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('lec.jpg'); /* Заменить на путь к твоему фону */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Дождь */
+.rain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.rain::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('db68ff2a-dbe5-4efd-a58b-95760c0aa353.png'); /* Путь к изображению дождя */
+  animation: rain-animation 0.5s linear infinite;
+}
+
+/* Анимация дождя */
+@keyframes rain-animation {
+  0% { top: -100%; }
+  100% { top: 100%; }
+}
+
+/* Контейнер */
+.container {
+  background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный фон для текста */
+  width: 100%;
+  max-width: 400px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  padding: 20px;
+  z-index: 2;
+  position: relative;
+}
+
+/* Заголовок */
+h1 {
+  font-size: 26px;
+  color: #fff;
+  margin: 10px 0;
+}
+
+/* Описание */
+p {
+  font-size: 14px;
+  color: #fff;
+  margin: 10px 0;
+}
+
+/* Кнопки */
+.btn {
+  display: block;
+  width: 90%;
+  max-width: 300px;
+  margin: 12px auto;
+  padding: 14px;
+  background-color: #1c1c1c; /* Темный фон кнопок */
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 18px;
+  border: 2px solid transparent; /* Прозрачная обводка */
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #3a3a3a; /* Темный цвет при наведении */
+  border-color: #fff; /* Белая обводка при наведении */
+}
+
+/* Стиль для стрелочек справа */
+.btn::after {
+  content: '→';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: #fff;
+}
+
+.footer {
+  margin-top: 20px;
+  font-size: 12px;
+  color: #888;
+}
+
+.footer a {
+  text-decoration: none;
+  color: #888;
+}
