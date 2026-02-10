@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUBG MOBILE | EXTREME SOFT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="pubg-style.css">
+</head>
+<body class="red-theme"> <div class="background-effect"></div>
+    <div class="scanline"></div>
+
+    <div class="container">
+        <div class="header-box">
+            <h1 class="glitch">PUBG MOBILE</h1>
+            <button id="theme-toggle" class="theme-switch">SWITCH TO BLUE MODE</button>
+            
+            <div class="status-bar">
+                STATUS: <span class="status-online">UNDETECTED</span>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature-item"><span>></span> AIMBOT / SILENT</div>
+            <div class="feature-item"><span>></span> ESP / WALLHACK</div>
+            <div class="feature-item"><span>></span> NO RECOIL / IPAD VIEW</div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="https://t.me/KPYTOU_PEREC" class="btn-main">ПОЛУЧИТЬ ДОСТУП</a>
+            <a href="index.html" class="btn-back">ВЕРНУТЬСЯ НА ГЛАВНУЮ</a>
+        </div>
+
+        <div class="footer">SYSTEM v4.0 // 2026</div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Скрипт переключения темы только для этой страницы
+        const btn = document.getElementById('theme-toggle');
+        btn.addEventListener('click', () => {
+            document.body.classList.toggle('blue-theme');
+            if(document.body.classList.contains('blue-theme')) {
+                btn.innerText = "SWITCH TO RED MODE";
+            } else {
+                btn.innerText = "SWITCH TO BLUE MODE";
+            }
+        });
+    </script>
+</body>
+</html>

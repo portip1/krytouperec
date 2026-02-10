@@ -1,116 +1,123 @@
-/* Общие стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-image: url('lec.jpg'); /* Заменить на путь к твоему фону */
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    background: url('lec.jpg') center center / cover no-repeat fixed;
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
-/* Дождь */
+/* Затемнение фона */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: -2;
+}
+
+/* ДОЖДЬ */
 .rain {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  z-index: 1;
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
 }
 
-.rain::after {
-  content: '';
-  position: absolute;
-  top: -100%;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('db68ff2a-dbe5-4efd-a58b-95760c0aa353.png'); /* Путь к изображению дождя */
-  animation: rain-animation 0.5s linear infinite;
+.drop {
+    position: absolute;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.3));
+    width: 1px;
+    height: 80px;
+    top: -100px;
+    animation: fall 0.6s linear infinite;
 }
 
-/* Анимация дождя */
-@keyframes rain-animation {
-  0% { top: -100%; }
-  100% { top: 100%; }
+@keyframes fall {
+    to { transform: translateY(110vh); }
 }
 
-/* Контейнер */
+/* КРАСНАЯ ЗМЕЙКА */
+.cursor-dot {
+    height: 10px;
+    width: 10px;
+    background-color: #00ff9d;
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    box-shadow: 0 0 15px #00ff2a;
+}
+
+/* КОНТЕНТ */
 .container {
-  background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный фон для текста */
-  width: 100%;
-  max-width: 400px;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  text-align: center;
-  padding: 20px;
-  z-index: 2;
-  position: relative;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    z-index: 10;
 }
 
-/* Заголовок */
-h1 {
-  font-size: 26px;
-  color: #fff;
-  margin: 10px 0;
+.info-box {
+    margin-bottom: 30px;
+    font-size: 16px;
+    line-height: 1.7;
 }
 
-/* Описание */
-p {
-  font-size: 14px;
-  color: #fff;
-  margin: 10px 0;
+.info-box b { color: #4b6fff; }
+
+.links-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: #4b6fff;
+    margin-bottom: 20px;
 }
 
-/* Кнопки */
+/* КНОПКИ */
 .btn {
-  display: block;
-  width: 90%;
-  max-width: 300px;
-  margin: 12px auto;
-  padding: 14px;
-  background-color: #1c1c1c; /* Темный фон кнопок */
-  color: #fff;
-  text-decoration: none;
-  border-radius: 8px;
-  font-size: 18px;
-  border: 2px solid transparent; /* Прозрачная обводка */
-  position: relative;
-  transition: all 0.3s ease;
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.03); 
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+    color: #ffffff;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: all 0.2s ease;
 }
 
 .btn:hover {
-  background-color: #3a3a3a; /* Темный цвет при наведении */
-  border-color: #fff; /* Белая обводка при наведении */
-}
-
-/* Стиль для стрелочек справа */
-.btn::after {
-  content: '→';
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 20px;
-  color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(75, 111, 255, 0.4);
+    transform: scale(1.02);
 }
 
 .footer {
-  margin-top: 20px;
-  font-size: 12px;
-  color: #888;
+    margin-top: 35px;
+    font-size: 10px;
+    opacity: 0.4;
+    letter-spacing: 3px;
 }
-
-.footer a {
-  text-decoration: none;
-  color: #888;
+.info-box h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
