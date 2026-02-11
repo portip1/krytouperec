@@ -45,7 +45,7 @@ body {
     transition: all 0.3s ease;
 }
 
-.info-box b { color: #4b6fff; }
+.info-box b { color: #ff0000; }
 
 /* Тот самый эффект при нажатии кнопки */
 .highlight {
@@ -129,4 +129,24 @@ body {
     cursor: pointer;
     position: relative;
     z-index: 20; /* Самый высокий приоритет для нажатия */
+}
+/* Стиль для плитки безопасности */
+.action-tile.safety {
+    border-left: 4px solid #2ecc71; /* Зеленая полоска сбоку */
+}
+
+.action-tile.safety:hover {
+    background: rgba(46, 204, 113, 0.1); /* Легкий зеленый отсвет при наведении */
+    box-shadow: 0 0 20px rgba(46, 204, 113, 0.2);
+}
+
+.action-tile.safety .tile-icon {
+    filter: drop-shadow(0 0 5px #2ecc71);
+}
+.action-tile.safety {
+    border-left: 4px solid #2ecc71;
+}
+.action-tile.safety:hover {
+    background: rgba(46, 204, 113, 0.1);
+    box-shadow: 0 0 20px rgba(46, 204, 113, 0.2);
 }
