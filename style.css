@@ -150,3 +150,18 @@ body {
     background: rgba(46, 204, 113, 0.1);
     box-shadow: 0 0 20px rgba(46, 204, 113, 0.2);
 }
+.top-video {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+.top-video video {
+    width: 100%;
+    max-width: 200px;   /* было 420 */
+    border-radius: 16px;
+    object-fit: cover;
+    box-shadow: 0 0 30px rgba(19, 4, 4, 0.7);
+}
