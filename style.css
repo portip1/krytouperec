@@ -1,167 +1,177 @@
+/* Подключил новый шрифт Oswald для ника */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Space+Mono:wght@400;700&family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&family=Oswald:wght@700&display=swap');
+
+:root {
+    --bg: #050505;
+    --card-bg: rgba(255, 255, 255, 0.03);
+    --accent: #ffffff;
+    --red-accent: #ff3e3e;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
     font-family: 'Inter', sans-serif;
-    background: url('lec.jpg') center center / cover no-repeat fixed;
-    background-color: #000;
-    color: #fff;
-    height: 100vh;
+    background: var(--bg);
+    color: #ffffff;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.snow-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.noise-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url('https://grainy-gradients.vercel.app/noise.svg');
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.main-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    padding: 30px 20px;
+    text-align: center;
+    z-index: 10;
+    animation: fadeIn 1.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* === РАЗНОЦВЕТНЫЙ ОБОД ДЛЯ АВАТАРКИ === */
+.avatar-container {
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 25px;
+    border-radius: 20px;
+    padding: 3px; 
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    background-size: 400%;
+    animation: rgbGlow 10s linear infinite; 
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05); 
+}
+
+.avatar-inner {
+    width: 100%; 
+    height: 100%;
+    background: #0d0d0d; 
+    border-radius: 17px;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    overflow: hidden; /* Чтобы углы фотки не вылезали за рамку */
 }
 
-/* Слой оверлея и дождя (клики проходят насквозь) */
-.overlay, .rain {
-    position: fixed;
-    inset: 0;
-    pointer-events: none; 
-    z-index: 1;
+@keyframes rgbGlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-.overlay {
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 0;
-}
-
-.container {
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
-    position: relative;
-    z-index: 10;
-}
-
-/* Ник и Username */
-.info-box {
-    margin-bottom: 20px;
-    font-size: 16px;
-    line-height: 1.7;
-    transition: all 0.3s ease;
-}
-
-.info-box b { color: #ff0000; }
-
-/* Тот самый эффект при нажатии кнопки */
-.highlight {
-    transform: scale(1.1);
-    text-shadow: 0 0 15px #4b6fff, 0 0 30px #4b6fff;
-}
-
-/* Кнопки */
-.btn {
-    display: block;
-    width: 100%;
-    padding: 11px 0;
-    margin-bottom: 10px;
-    background: rgba(255, 255, 255, 0.03); 
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 12px;
-    color: #ffffff;
-    text-decoration: none;
-    font-family: 'Montserrat', sans-serif;
+/* === НОВЫЙ СТИЛЬ НИКА И ЮЗЕРНЕЙМА === */
+.new-nickname {
+    font-family: 'Oswald', sans-serif; /* Тот самый новый шрифт */
+    font-size: 28px; /* Крупный */
     font-weight: 700;
-    font-size: 13px;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    transition: all 0.3s ease;
-    cursor: pointer;
+    letter-spacing: 0.1em;
+    color: #ffffff; /* Белое слово КРУТОЙ */
+    margin-bottom: 12px;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
 
-.btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: #4b6fff; /* Сделал ховер синим под стиль ника */
-    box-shadow: 0 0 15px rgba(75, 111, 255, 0.2);
-    transform: scale(1.02);
+.new-nickname span {
+    color: var(--red-accent); /* Красное слово ПЕРЕЦ */
+    text-shadow: 0 0 20px rgba(255, 62, 62, 0.4);
 }
 
-.info-btn {
-    border-color: rgba(75, 111, 255, 0.3);
-    color: #4b6fff;
-}
-
-.links-label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 11px;
-    letter-spacing: 5px;
-    color: #4b6fff;
-    margin: 20px 0;
-}
-
-/* Анимация капель дождя */
-.drop {
-    position: absolute;
-    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.3));
-    width: 1px;
-    height: 80px;
-    top: -100px;
-    animation: fall linear infinite;
-}
-
-@keyframes fall {
-    to { transform: translateY(110vh); }
-}
-
-.footer {
-    margin-top: 30px;
+.username-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    font-family: 'Space Mono', monospace;
     font-size: 10px;
-    opacity: 0.4;
-    letter-spacing: 3px;
-}
-/* Дождь не должен мешать кликам */
-.rain {
-    pointer-events: none; /* Клики будут проходить сквозь дождь */
-    z-index: 1;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.05em;
+    backdrop-filter: blur(5px);
 }
 
-/* Кнопка должна быть сверху всех фонов */
-.container {
-    position: relative;
-    z-index: 10;
-}
-
-.btn {
-    cursor: pointer;
-    position: relative;
-    z-index: 20; /* Самый высокий приоритет для нажатия */
-}
-/* Стиль для плитки безопасности */
-.action-tile.safety {
-    border-left: 4px solid #2ecc71; /* Зеленая полоска сбоку */
-}
-
-.action-tile.safety:hover {
-    background: rgba(46, 204, 113, 0.1); /* Легкий зеленый отсвет при наведении */
-    box-shadow: 0 0 20px rgba(46, 204, 113, 0.2);
-}
-
-.action-tile.safety .tile-icon {
-    filter: drop-shadow(0 0 5px #2ecc71);
-}
-.action-tile.safety {
-    border-left: 4px solid #2ecc71;
-}
-.action-tile.safety:hover {
-    background: rgba(46, 204, 113, 0.1);
-    box-shadow: 0 0 20px rgba(46, 204, 113, 0.2);
-}
-.top-video {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
-  margin-bottom: 40px;
-}
-
-.top-video video {
+/* === ИДЕАЛЬНЫЕ ПРОПОРЦИИ КНОПОК === */
+.btn-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
     width: 100%;
-    max-width: 200px;   /* было 420 */
-    border-radius: 16px;
-    object-fit: cover;
-    box-shadow: 0 0 30px rgba(19, 4, 4, 0.7);
+    padding: 18px 24px; 
+    margin-bottom: 12px; 
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    text-transform: uppercase;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    text-decoration: none;
+}
+
+.btn-link:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.07);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-main {
+    justify-content: center; 
+    margin-bottom: 30px;
+    padding: 20px 24px;
+    border-color: rgba(255, 255, 255, 0.15);
+    font-size: 15px;
+}
+
+.section-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    opacity: 0.3;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+footer {
+    font-family: 'Orbitron', sans-serif;
+    margin-top: 40px;
+    opacity: 0.2;
+    font-size: 9px;
+    letter-spacing: 0.1em;
 }

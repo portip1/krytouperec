@@ -1,51 +1,67 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>КРУТОЙ ПЕРЕЦ | Profile</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>КРУТОЙ ПЕРЕЦ | Ссылки</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="overlay"></div>
-    <div class="rain" id="rain"></div> 
-    
-    <div class="container">
+    <!-- Эффекты на фоне -->
+    <div class="noise-overlay"></div>
+    <canvas id="snow" class="snow-canvas"></canvas>
 
-    <div class="top-video">
-        <video autoplay muted loop playsinline>
-            <source src="emp.mp4" type="video/mp4">
-        </video>
-    </div>
-
-    <div class="info-box" id="my-info"> 
-
-            Ник: <b>КРУТОЙ ПЕРЕЦ</b><br>
-            username: <b>@KPYTOU_PEREC</b>
-        </div>
-
-        <a href="info.html" class="btn info-btn" id="show-info" target="_self">MY INFORMATION</a>
-
-        <div class="links-label">ССЫЛКИ</div>
-
-        <a href="https://t.me/KPYTOU_PEREC" class="btn" target="_blank">МОЙ ЛС В ТЕЛЕГРАМЕ</a>
-        <a href="projects.html" class="btn">МОИ ПРОЕКТЫ</a>
-        <a href="pubg.html" class="btn">PUBG MOBILE SOFT</a>
+    <div class="main-wrapper">
         
-        <a href="friends.html" class="btn">FRIENDS 👥</a>
-        <a href="setup.html" class="btn">MY SETUP ⚙️</a>
-        <div class="footer">КРУТОЙ ПЕРЕЦ &copy; 2026</div>
-    </div>
-
-    <div id="status-modal" class="modal" style="display:none;">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <p>Статус: В сети</p>
+        <!-- Аватарка (с RGB рамкой и повернутой фоткой) -->
+        <div class="avatar-container">
+            <div class="avatar-inner">
+                <img src="avatar.jpg" alt="Аватарка" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px; transform: rotate(-90deg);">
+            </div>
         </div>
+
+        <!-- НОВЫЙ НИК И ЮЗЕРНЕЙМ -->
+        <div class="mb-10 flex flex-col items-center">
+            <h1 class="new-nickname">
+                КРУТОЙ <span>ПЕРЕЦ</span>
+            </h1>
+            <div class="username-badge">
+                <i class="fa-brands fa-telegram text-white/40"></i> KRYTOU_PEREC
+            </div>
+        </div>
+
+        <!-- Кнопка "Обо мне" (ведет на index2.html) -->
+        <a href="index2.html" class="btn-link btn-main">
+            My Information
+        </a>
+
+        <div class="section-label badge-font">Ссылки</div>
+        
+        <!-- Ровные и стильные кнопки -->
+        <div>
+            <a href="https://t.me/KRYTOU_PEREC" target="_blank" class="btn-link group">
+                <span>TG</span>
+                <i class="fa-brands fa-telegram-plane opacity-30 group-hover:opacity-100 transition duration-300"></i>
+            </a>
+
+            <!-- Кнопка "Проекты" (ведет на project.html) -->
+            <a href="project.html" class="btn-link group">
+                <span>PROJECT</span>
+                <i class="fa-solid fa-code opacity-30 group-hover:opacity-100 transition duration-300"></i>
+            </a>
+
+          
+
+        <footer class="badge-font">
+            КРУТОЙ ПЕРЕЦ © 2024
+        </footer>
     </div>
 
+    <!-- Твой файл со снегом -->
     <script src="script.js"></script>
 </body>
 </html>
