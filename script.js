@@ -1,69 +1,78 @@
-const canvas = document.getElementById('snow');
-const ctx = canvas.getContext('2d');
+document.addEventListener('DOMContentLoaded', () => {
+    const audio = document.getElementById('bgMusic');
+    const playBtn = document.getElementById('playBtn');
+    const playerContainer = document.getElementById('player');
+    const fill = document.querySelector('.progress-fill');
+    const currentTimeEl = document.querySelector('.current-time');
+    const totalTimeEl = document.querySelector('.total-time');
+    const volumeBtn = document.getElementById('volumeBtn');
 
-let width, height, flakes;
+    // Переменные для модального окна
+    const friendsBtn = document.querySelector('.friends-btn');
+    const friendsModal = document.getElementById('friendsModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
 
-function initSnow() {
-    const dpr = window.devicePixelRatio || 1;
-    
-    width = window.innerWidth;
-    height = window.innerHeight;
-    
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-    
-    ctx.scale(dpr, dpr);
+    let isMuted = false;
 
-    flakes = [];
-    const count = Math.floor(width / 5); 
+    // Кнопка Play/Pause
+    playBtn.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play().catch(err => console.log("Браузер требует клика на страницу перед запуском"));
+            playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            playerContainer.classList.add('playing');
+        } else {
+            audio.pause();
+            playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            playerContainer.classList.remove('playing');
+        }
+    });
+
+    // Таймлайн трека
+    audio.addEventListener('timeupdate', () => {
+        const current = audio.currentTime;
+        const duration = audio.duration && !isNaN(audio.duration) ? audio.duration : 109; 
+        
+        const pct = (current / duration) * 100;
+        fill.style.width = `${pct}%`;
+
+        currentTimeEl.textContent = formatTime(current);
+        totalTimeEl.textContent = formatTime(duration);
+    });
+
+    // Кнопка Mute в верхнем углу
+    volumeBtn.addEventListener('click', () => {
+        isMuted = !isMuted;
+        audio.muted = isMuted;
+        volumeBtn.innerHTML = isMuted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
+    });
+
+    // --- ЛОГИКА ОКНА FRIENDS ---
     
-    for (let i = 0; i < count; i++) {
-        flakes.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            radius: Math.random() * 1.5 + 0.5,
-            speed: Math.random() * 1 + 0.5,
-            opacity: Math.random() * 0.5 + 0.2,
-            swing: Math.random() * Math.PI * 2
-        });
+    // Открытие окна
+    friendsBtn.addEventListener('click', (e) => {
+        e.preventDefault(); // Запрещаем переход по ссылке #
+        friendsModal.classList.add('active');
+        friendsModal.setAttribute('aria-hidden', 'false');
+    });
+
+    // Закрытие на крестик
+    closeModalBtn.addEventListener('click', () => {
+        friendsModal.classList.remove('active');
+        friendsModal.setAttribute('aria-hidden', 'true');
+    });
+
+    // Закрытие при клике на темную область вокруг окна
+    friendsModal.addEventListener('click', (e) => {
+        if (e.target === friendsModal) {
+            friendsModal.classList.remove('active');
+            friendsModal.setAttribute('aria-hidden', 'true');
+        }
+    });
+
+    // Форматирование времени
+    function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+        return `${mins}:${secs}`;
     }
-}
-
-function updateSnow() {
-    ctx.clearRect(0, 0, width, height);
-    
-    flakes.forEach(flake => {
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(255, 255, 255, ${flake.opacity})`;
-        ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
-        ctx.fill();
-
-        flake.y += flake.speed;
-        flake.swing += 0.02;
-        flake.x += Math.sin(flake.swing) * 0.5;
-        
-        if (flake.y > height) {
-            flake.y = -5;
-            flake.x = Math.random() * width;
-        }
-        
-        if (flake.x > width) flake.x = 0;
-        if (flake.x < 0) flake.x = width;
-    });
-    
-    requestAnimationFrame(updateSnow);
-}
-
-window.addEventListener('resize', initSnow);
-
-initSnow();
-updateSnow();
-
-// Виброотклик
-document.querySelectorAll('.btn-link').forEach(btn => {
-    btn.addEventListener('click', () => {
-        if (window.navigator && window.navigator.vibrate) {
-            window.navigator.vibrate(10);
-        }
-    });
 });

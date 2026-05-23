@@ -1,177 +1,430 @@
-/* Подключил новый шрифт Oswald для ника */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Space+Mono:wght@400;700&family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&family=Oswald:wght@700&display=swap');
-
-:root {
-    --bg: #050505;
-    --card-bg: rgba(255, 255, 255, 0.03);
-    --accent: #ffffff;
-    --red-accent: #ff3e3e;
-}
-
+/* Обнуление и базовые настройки */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
+    background: radial-gradient(circle at center, #1a0505 0%, #050505 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: #ffffff;
     overflow-x: hidden;
-    overflow-y: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-
-.snow-canvas {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 1;
-    pointer-events: none;
-}
-
-.noise-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: url('https://grainy-gradients.vercel.app/noise.svg');
-    opacity: 0.04;
-    pointer-events: none;
-    z-index: 100;
-}
-
-.main-wrapper {
     position: relative;
-    width: 100%;
-    max-width: 400px;
-    padding: 30px 20px;
-    text-align: center;
+}
+
+/* Верхняя панель управления */
+.top-controls {
+    position: absolute;
+    top: 20px;
+    left: 20px;
     z-index: 10;
-    animation: fadeIn 1.2s ease-out;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+.control-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s;
 }
 
-/* === РАЗНОЦВЕТНЫЙ ОБОД ДЛЯ АВАТАРКИ === */
+.control-btn:hover {
+    color: #ff3333;
+}
+
+/* Центрирующий контейнер */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 460px;
+    padding: 20px;
+    z-index: 2;
+}
+
+/* Карточка профиля */
+.profile-card {
+    background: rgba(15, 15, 15, 0.6);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 0, 0, 0.15);
+    border-radius: 24px;
+    width: 100%;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    animation: cardEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Аватар */
 .avatar-container {
+    position: relative;
     width: 110px;
     height: 110px;
-    margin: 0 auto 25px;
-    border-radius: 20px;
-    padding: 3px; 
-    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
-    background-size: 400%;
-    animation: rgbGlow 10s linear infinite; 
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05); 
+    margin: 0 auto 24px;
 }
 
-.avatar-inner {
-    width: 100%; 
+.profile-avatar {
+    width: 100%;
     height: 100%;
-    background: #0d0d0d; 
-    border-radius: 17px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 51, 51, 0.4);
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.avatar-container:hover .profile-avatar {
+    transform: scale(1.05);
+    box-shadow: 0 0 35px rgba(255, 51, 51, 0.7);
+}
+
+/* Текст */
+.username {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+.bio {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 24px;
+}
+
+.infinity {
+    font-size: 18px;
+    color: #ff3333;
+    vertical-align: middle;
+}
+
+/* Кнопка Friends */
+.friends-btn {
+    display: inline-block;
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 28px;
+    transition: all 0.3s ease;
+}
+
+.friends-btn i {
+    margin-right: 6px;
+    color: #ff3333;
+}
+
+.friends-btn:hover {
+    background: rgba(255, 0, 0, 0.2);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Сетка иконок соцсетей */
+.social-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+}
+
+.social-link {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 18px;
+    text-decoration: none;
+    width: 42px;
+    height: 42px;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden; /* Чтобы углы фотки не вылезали за рамку */
-}
-
-@keyframes rgbGlow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* === НОВЫЙ СТИЛЬ НИКА И ЮЗЕРНЕЙМА === */
-.new-nickname {
-    font-family: 'Oswald', sans-serif; /* Тот самый новый шрифт */
-    font-size: 28px; /* Крупный */
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #ffffff; /* Белое слово КРУТОЙ */
-    margin-bottom: 12px;
-    text-shadow: 0 4px 20px rgba(0,0,0,0.5);
-}
-
-.new-nickname span {
-    color: var(--red-accent); /* Красное слово ПЕРЕЦ */
-    text-shadow: 0 0 20px rgba(255, 62, 62, 0.4);
-}
-
-.username-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 16px;
+    border-radius: 12px;
     background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    color: rgba(255, 255, 255, 0.6);
-    letter-spacing: 0.05em;
-    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* === ИДЕАЛЬНЫЕ ПРОПОРЦИИ КНОПОК === */
-.btn-link {
+.social-link:hover {
+    color: #ffffff;
+    background: rgba(255, 0, 0, 0.15);
+    border-color: rgba(255, 0, 0, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Блок плеера */
+.player-section {
+    width: 100%;
+}
+
+.views-counter {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.3);
+    margin-left: 14px;
+    margin-bottom: 6px;
     display: flex;
     align-items: center;
-    justify-content: space-between; 
+    gap: 6px;
+}
+
+.music-player {
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 0, 0, 0.2);
+    border-radius: 40px;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
-    padding: 18px 24px; 
-    margin-bottom: 12px; 
-    background: var(--card-bg);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    text-transform: uppercase;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    color: rgba(255, 255, 255, 0.6);
-    transition: all 0.3s ease;
-    backdrop-filter: blur(5px);
-    text-decoration: none;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
 }
 
-.btn-link:hover {
-    border-color: rgba(255, 255, 255, 0.3);
-    background: rgba(255, 255, 255, 0.07);
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+.player-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-grow: 1;
 }
 
-.btn-main {
-    justify-content: center; 
-    margin-bottom: 30px;
-    padding: 20px 24px;
-    border-color: rgba(255, 255, 255, 0.15);
+/* Крутящийся винил */
+.vinyl-disc {
+    width: 36px;
+    height: 36px;
+    background: #0d0d0d;
+    border-radius: 50%;
+    background-image: repeating-radial-gradient(circle, #1a1a1a, #0d0d0d 2px, #1a1a1a 4px);
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    flex-shrink: 0;
+    animation: spin 4s linear infinite;
+    animation-play-state: paused;
+}
+
+.playing .vinyl-disc {
+    animation-play-state: running;
+}
+
+.vinyl-center {
+    width: 10px;
+    height: 10px;
+    background: #ff0000;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid #222;
+}
+
+.track-details {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.track-title {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+/* Таймлайн */
+.progress-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.time {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.progress-bar {
+    height: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    flex-grow: 1;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: #ff3333;
+    border-radius: 2px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+}
+
+/* Кнопки управления */
+.player-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.player-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 12px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.player-btn:hover {
+    color: #ff3333;
+}
+
+.toggle-play {
     font-size: 15px;
+    color: #ffffff;
+    width: 20px;
 }
 
-.section-label {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 9px;
-    letter-spacing: 0.4em;
-    opacity: 0.3;
+/* --- МОДАЛЬНОЕ ОКНО FRIENDS (НОВОЕ) --- */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    /* Плавный переход для размытия фона */
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Когда окно открыто */
+.modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background: rgba(15, 15, 15, 0.85);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 0, 0, 0.2);
+    border-radius: 24px;
+    padding: 40px 30px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9), 
+                0 0 50px rgba(255, 0, 0, 0.15);
+    position: relative;
+    
+    /* Эффект вылета: изначально уменьшено и смещено вниз */
+    transform: scale(0.85) translateY(30px);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Анимация контента при открытии */
+.modal.active .modal-content {
+    transform: scale(1) translateY(0);
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 28px;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.2s;
+}
+
+.close-modal:hover {
+    color: #ff3333;
+    transform: scale(1.1);
+}
+
+.modal-content h2 {
+    font-size: 22px;
+    font-weight: 700;
     margin-bottom: 20px;
-    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+    letter-spacing: 0.5px;
 }
 
-footer {
-    font-family: 'Orbitron', sans-serif;
-    margin-top: 40px;
-    opacity: 0.2;
-    font-size: 9px;
-    letter-spacing: 0.1em;
+.modal-placeholder {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
+}
+
+/* Анимации появления страницы */
+@keyframes cardEntrance {
+    from { opacity: 0; transform: scale(0.97) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Фоновые частицы */
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    color: rgba(255, 51, 51, 0.15);
+    font-size: 11px;
+    animation: snowfall 14s linear infinite;
+}
+
+.particle:nth-child(1) { left: 12%; animation-delay: 0s; }
+.particle:nth-child(2) { left: 40%; animation-delay: 2s; }
+.particle:nth-child(3) { left: 70%; animation-delay: 5s; }
+.particle:nth-child(4) { left: 28%; animation-delay: 7s; }
+.particle:nth-child(5) { left: 88%; animation-delay: 3s; }
+.particle:nth-child(6) { left: 55%; animation-delay: 9s; }
+
+@keyframes snowfall {
+    0% { top: -5%; transform: translateX(0) rotate(0deg); }
+    100% { top: 105%; transform: translateX(40px) rotate(360deg); }
 }
